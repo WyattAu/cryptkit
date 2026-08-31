@@ -21,7 +21,12 @@ thiserror = "2"
 ed25519-dalek = { version = "2", optional = true }
 ring = { version = "0.17", optional = true }
 
+[[bench]]
+name = "crypto_bench"
+harness = false
+
 [dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
 hex = "0.4"
 
 [features]
