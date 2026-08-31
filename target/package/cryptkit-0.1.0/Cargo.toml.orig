@@ -1,0 +1,40 @@
+[package]
+name = "cryptkit"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+description = "Cryptographic primitives for Rust — HMAC-SHA256, AES-GCM, constant-time comparison, and secure random with zeroize"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/WyattAu/cryptkit"
+keywords = ["crypto", "hmac", "aes-gcm", "constant-time", "zeroize"]
+categories = ["cryptography"]
+readme = "README.md"
+
+[dependencies]
+hmac = { version = "0.12", optional = true }
+sha2 = { version = "0.10", optional = true }
+aes-gcm = { version = "0.10", optional = true }
+subtle = "2"
+zeroize = { version = "1", features = ["zeroize_derive"] }
+rand = "0.8"
+thiserror = "2"
+ed25519-dalek = { version = "2", optional = true }
+ring = { version = "0.17", optional = true }
+
+[[bench]]
+name = "crypto_bench"
+harness = false
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+hex = "0.4"
+
+[features]
+default = ["hmac_sha256", "aes-gcm"]
+hmac_sha256 = ["dep:hmac", "dep:sha2"]
+aes-gcm = ["dep:aes-gcm"]
+ed25519 = ["dep:ed25519-dalek"]
+fips = ["dep:ring"]
+
+[package.metadata.docs.rs]
+all-features = true
