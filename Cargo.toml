@@ -8,6 +8,7 @@ license = "MIT OR Apache-2.0"
 repository = "https://github.com/WyattAu/cryptkit"
 keywords = ["crypto", "hmac", "aes-gcm", "constant-time", "zeroize"]
 categories = ["cryptography"]
+exclude = ["/target"]
 readme = "README.md"
 
 [dependencies]

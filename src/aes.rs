@@ -1,8 +1,8 @@
 //! AES-256-GCM authenticated encryption and decryption.
 
 use aes_gcm::{
-    aead::{Aead, KeyInit},
     Aes256Gcm, Nonce,
+    aead::{Aead, KeyInit},
 };
 use zeroize::{Zeroize, ZeroizeOnDrop};
 
@@ -67,8 +67,8 @@ impl AesGcmEncryptor {
     /// The first 12 bytes are the nonce, the rest is the AES-GCM ciphertext
     /// including the 16-byte authentication tag.
     pub fn encrypt(&self, plaintext: &[u8]) -> Result<Vec<u8>, AesError> {
-        let cipher = Aes256Gcm::new_from_slice(&self.key)
-            .map_err(|e| AesError::Encrypt(e.to_string()))?;
+        let cipher =
+            Aes256Gcm::new_from_slice(&self.key).map_err(|e| AesError::Encrypt(e.to_string()))?;
 
         let mut nonce_bytes = [0u8; 12];
         random::secure_random_bytes(&mut nonce_bytes);
@@ -93,8 +93,8 @@ impl AesGcmEncryptor {
         let (nonce_bytes, ciphertext) = data.split_at(12);
         let nonce = Nonce::from_slice(nonce_bytes);
 
-        let cipher = Aes256Gcm::new_from_slice(&self.key)
-            .map_err(|e| AesError::Decrypt(e.to_string()))?;
+        let cipher =
+            Aes256Gcm::new_from_slice(&self.key).map_err(|e| AesError::Decrypt(e.to_string()))?;
 
         cipher
             .decrypt(nonce, ciphertext)

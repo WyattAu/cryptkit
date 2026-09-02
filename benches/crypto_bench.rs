@@ -1,4 +1,4 @@
-use criterion::{criterion_group, criterion_main, Criterion};
+use criterion::{Criterion, criterion_group, criterion_main};
 
 fn bench_hmac_sign(c: &mut Criterion) {
     let key = b"super-secret-key-for-benchmarking";

@@ -18,8 +18,7 @@ type HmacSha256 = Hmac<Sha256>;
 /// assert!(hmac_verify(b"secret", b"message", &tag));
 /// ```
 pub fn hmac_sign(key: &[u8], message: &[u8]) -> [u8; 32] {
-    let mut mac = HmacSha256::new_from_slice(key)
-        .expect("HMAC accepts any key length");
+    let mut mac = HmacSha256::new_from_slice(key).expect("HMAC accepts any key length");
     mac.update(message);
     let result = mac.finalize();
     let mut tag = [0u8; 32];
@@ -42,8 +41,7 @@ pub fn hmac_sign(key: &[u8], message: &[u8]) -> [u8; 32] {
 /// assert!(!hmac_verify(b"wrong", b"message", &tag));
 /// ```
 pub fn hmac_verify(key: &[u8], message: &[u8], tag: &[u8; 32]) -> bool {
-    let mut mac = HmacSha256::new_from_slice(key)
-        .expect("HMAC accepts any key length");
+    let mut mac = HmacSha256::new_from_slice(key).expect("HMAC accepts any key length");
     mac.update(message);
     mac.verify_slice(tag).is_ok()
 }

@@ -1,0 +1,26 @@
+[package]
+name = "cryptkit-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[workspace]
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+cryptkit = { path = ".." }
+
+[[bin]]
+name = "fuzz_decrypt_aes_gcm"
+path = "fuzz_targets/fuzz_decrypt_aes_gcm.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "fuzz_hmac_verify"
+path = "fuzz_targets/fuzz_hmac_verify.rs"
+test = false
+doc = false
