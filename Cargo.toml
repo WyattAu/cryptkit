@@ -40,3 +40,9 @@ fips = ["dep:ring"]
 
 [package.metadata.docs.rs]
 all-features = true
+
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "warn"
+indexing_slicing = "deny"
+panic = "deny"

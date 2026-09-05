@@ -18,6 +18,9 @@ type HmacSha256 = Hmac<Sha256>;
 /// assert!(hmac_verify(b"secret", b"message", &tag));
 /// ```
 pub fn hmac_sign(key: &[u8], message: &[u8]) -> [u8; 32] {
+    // INVARIANT: HMAC-SHA256 accepts keys of any length, so
+    // `new_from_slice` cannot fail here.
+    #[allow(clippy::expect_used)]
     let mut mac = HmacSha256::new_from_slice(key).expect("HMAC accepts any key length");
     mac.update(message);
     let result = mac.finalize();
@@ -41,6 +44,9 @@ pub fn hmac_sign(key: &[u8], message: &[u8]) -> [u8; 32] {
 /// assert!(!hmac_verify(b"wrong", b"message", &tag));
 /// ```
 pub fn hmac_verify(key: &[u8], message: &[u8], tag: &[u8; 32]) -> bool {
+    // INVARIANT: HMAC-SHA256 accepts keys of any length, so
+    // `new_from_slice` cannot fail here.
+    #[allow(clippy::expect_used)]
     let mut mac = HmacSha256::new_from_slice(key).expect("HMAC accepts any key length");
     mac.update(message);
     mac.verify_slice(tag).is_ok()
@@ -67,6 +73,15 @@ pub fn constant_time_eq(a: &[u8], b: &[u8]) -> bool {
     a.ct_eq(b).into()
 }
 
+// Tests exercise failure paths and invariants directly; unwrap/expect,
+// slicing, and panicking asserts are acceptable here — violations
+// surface as test failures, not production panics.
+#[allow(
+    clippy::unwrap_used,
+    clippy::expect_used,
+    clippy::indexing_slicing,
+    clippy::panic
+)]
 #[cfg(test)]
 mod tests {
     use super::*;
