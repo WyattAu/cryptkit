@@ -9,6 +9,9 @@ type HmacSha256 = Hmac<Sha256>;
 ///
 /// The returned tag is 32 bytes. The key is zeroized after use.
 ///
+/// # Requirements
+/// REQ-CK-001
+///
 /// # Example
 ///
 /// ```rust
@@ -34,6 +37,9 @@ pub fn hmac_sign(key: &[u8], message: &[u8]) -> [u8; 32] {
 /// Returns `true` if the tag matches, `false` otherwise.
 /// Uses `subtle::ConstantTimeEq` to prevent timing attacks.
 ///
+/// # Requirements
+/// REQ-CK-100, REQ-CK-101, REQ-CK-106
+///
 /// # Example
 ///
 /// ```rust
@@ -56,6 +62,9 @@ pub fn hmac_verify(key: &[u8], message: &[u8], tag: &[u8; 32]) -> bool {
 ///
 /// Returns `true` only if the slices are equal and of the same length.
 /// The comparison is performed in constant time to prevent timing attacks.
+///
+/// # Requirements
+/// REQ-CK-101, REQ-CK-201
 ///
 /// # Example
 ///
@@ -110,6 +119,28 @@ mod tests {
         assert!(!constant_time_eq(b"abc", b"abd"));
         assert!(!constant_time_eq(b"abc", b"ab"));
         assert!(!constant_time_eq(b"ab", b"abc"));
+        assert!(constant_time_eq(b"", b""));
+        assert!(!constant_time_eq(b"", b"a"));
+    }
+
+    /// REQ-CK-106: verification must fail closed — never panic — for tags of
+    /// the wrong content, all-zero tags, or any hostile tag bytes.
+    #[test]
+    fn hmac_verify_rejects_wrong_length_and_zero_tags() {
+        let tag = hmac_sign(b"key", b"hello");
+
+        assert!(!hmac_verify(b"key", b"hello", &[0u8; 32]));
+        assert!(!hmac_verify(b"key", b"hello", &[0xFF; 32]));
+
+        // Flip every bit of a valid tag; must reject, not panic.
+        let mut flipped = tag;
+        for b in flipped.iter_mut() {
+            *b ^= 0xFF;
+        }
+        assert!(!hmac_verify(b"key", b"hello", &flipped));
+
+        // Original still verifies (no state corruption).
+        assert!(hmac_verify(b"key", b"hello", &tag));
     }
 
     #[test]

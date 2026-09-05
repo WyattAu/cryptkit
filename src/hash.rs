@@ -6,6 +6,9 @@ use sha2::{Digest, Sha256};
 ///
 /// Returns the 32-byte hash.
 ///
+/// # Requirements
+/// REQ-CK-003
+///
 /// # Example
 ///
 /// ```rust

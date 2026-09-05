@@ -34,6 +34,9 @@ pub enum AesError {
 /// with a 32-byte key, or generate a random one with
 /// [`AesGcmEncryptor::generate`].
 ///
+/// # Requirements
+/// REQ-CK-002, REQ-CK-104, REQ-CK-107, REQ-CK-202
+///
 /// # Example
 ///
 /// ```rust
@@ -66,6 +69,9 @@ impl AesGcmEncryptor {
     ///
     /// The first 12 bytes are the nonce, the rest is the AES-GCM ciphertext
     /// including the 16-byte authentication tag.
+    ///
+    /// # Requirements
+    /// REQ-CK-002
     pub fn encrypt(&self, plaintext: &[u8]) -> Result<Vec<u8>, AesError> {
         let cipher =
             Aes256Gcm::new_from_slice(&self.key).map_err(|e| AesError::Encrypt(e.to_string()))?;
@@ -85,6 +91,9 @@ impl AesGcmEncryptor {
     }
 
     /// Decrypts `nonce || ciphertext` produced by [`encrypt`](Self::encrypt).
+    ///
+    /// # Requirements
+    /// REQ-CK-002, REQ-CK-102, REQ-CK-103, REQ-CK-200
     pub fn decrypt(&self, data: &[u8]) -> Result<Vec<u8>, AesError> {
         if data.len() < 12 {
             return Err(AesError::Decrypt("data too short".into()));
@@ -102,6 +111,9 @@ impl AesGcmEncryptor {
     }
 
     /// Returns a reference to the raw key bytes.
+    ///
+    /// # Requirements
+    /// REQ-CK-107
     pub fn key_bytes(&self) -> &[u8; 32] {
         &self.key
     }
@@ -155,14 +167,46 @@ mod tests {
         assert_eq!(decrypted, b"");
     }
 
+    /// REQ-CK-104: zeroization is enforced by the type system —
+    /// `AesGcmEncryptor` must implement `ZeroizeOnDrop`, verified here at
+    /// compile time (the derive would fail the build if removed).
     #[test]
-    fn key_zeroize_on_drop() {
-        let key = [0x42u8; 32];
-        let enc = AesGcmEncryptor::new(key).unwrap();
-        let ptr = enc.key.as_ptr();
-        drop(enc);
-        // Key memory is zeroized; we can't assert the bytes directly
-        // without unsafe, but the test verifies the drop path compiles.
-        assert!(!ptr.is_null());
+    fn encryptor_is_zeroize_on_drop() {
+        fn assert_zeroize_on_drop<T: zeroize::ZeroizeOnDrop>() {}
+        assert_zeroize_on_drop::<AesGcmEncryptor>();
+    }
+
+    /// REQ-CK-200: input shorter than the 12-byte nonce must return `Err`,
+    /// never panic or read out of bounds.
+    #[test]
+    fn decrypt_rejects_truncated_input() {
+        let enc = AesGcmEncryptor::generate().unwrap();
+        for n in 0..12 {
+            let data = vec![0u8; n];
+            assert!(enc.decrypt(&data).is_err(), "length {n} must be Err");
+        }
+    }
+
+    /// REQ-CK-202: a single handle shared across threads performs concurrent
+    /// encrypt/decrypt correctly (immutable `&self` API, `Send + Sync`).
+    #[test]
+    fn shared_handle_concurrent_roundtrip() {
+        use std::sync::Arc;
+        use std::thread;
+
+        let enc = Arc::new(AesGcmEncryptor::generate().unwrap());
+        let mut handles = Vec::new();
+        for i in 0..8 {
+            let enc = Arc::clone(&enc);
+            handles.push(thread::spawn(move || {
+                let plaintext = format!("thread-{i}-payload");
+                let ct = enc.encrypt(plaintext.as_bytes()).unwrap();
+                let pt = enc.decrypt(&ct).unwrap();
+                assert_eq!(pt, plaintext.as_bytes());
+            }));
+        }
+        for h in handles {
+            h.join().unwrap();
+        }
     }
 }

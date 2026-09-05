@@ -6,6 +6,9 @@ use rand::RngCore;
 ///
 /// Uses the OS entropy source via `rand::thread_rng()`.
 ///
+/// # Requirements
+/// REQ-CK-004, REQ-CK-105
+///
 /// # Example
 ///
 /// ```rust
