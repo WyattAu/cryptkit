@@ -24,6 +24,7 @@ pub mod hmac;
 #[cfg(feature = "aes-gcm")]
 pub mod aes;
 
+#[cfg(feature = "hmac_sha256")]
 pub mod hash;
 pub mod random;
 
@@ -81,6 +82,7 @@ mod proptests {
             prop_assert!(enc2.decrypt(&ciphertext).is_err());
         }
 
+        #[cfg(feature = "hmac_sha256")]
         #[test]
         fn sha256_deterministic(data in "\\PC{0,1024}") {
             let data = data.as_bytes();
@@ -89,6 +91,7 @@ mod proptests {
             prop_assert_eq!(h1, h2);
         }
 
+        #[cfg(feature = "hmac_sha256")]
         #[test]
         fn sha256_different_inputs(a in "\\PC{1,256}", b in "\\PC{1,256}") {
             prop_assume!(a != b);
