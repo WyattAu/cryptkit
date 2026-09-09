@@ -1,0 +1,836 @@
+{
+  "outcomes": [
+    {
+      "scenario": "Baseline",
+      "summary": "Success",
+      "log_path": "log/baseline.log",
+      "diff_path": null,
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 61.909895385,
+          "process_status": "Success",
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 5.010421946,
+          "process_status": "Success",
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/aes.rs:63:9: replace AesGcmEncryptor::generate -> Result<Self, AesError> with Ok(Default::default())",
+          "package": "cryptkit",
+          "file": "src/aes.rs",
+          "function": {
+            "function_name": "AesGcmEncryptor::generate",
+            "return_type": "-> Result<Self, AesError>",
+            "span": {
+              "start": {
+                "line": 61,
+                "column": 5
+              },
+              "end": {
+                "line": 66,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 63,
+              "column": 9
+            },
+            "end": {
+              "line": 65,
+              "column": 25
+            }
+          },
+          "replacement": "Ok(Default::default())",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "Unviable",
+      "log_path": "log/src__aes.rs_line_63_col_9.log",
+      "diff_path": "diff/src__aes.rs_line_63_col_9.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 1.664520418,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/aes.rs:76:9: replace AesGcmEncryptor::encrypt -> Result<Vec<u8>, AesError> with Ok(vec![0])",
+          "package": "cryptkit",
+          "file": "src/aes.rs",
+          "function": {
+            "function_name": "AesGcmEncryptor::encrypt",
+            "return_type": "-> Result<Vec<u8>, AesError>",
+            "span": {
+              "start": {
+                "line": 68,
+                "column": 5
+              },
+              "end": {
+                "line": 91,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 76,
+              "column": 9
+            },
+            "end": {
+              "line": 90,
+              "column": 19
+            }
+          },
+          "replacement": "Ok(vec![0])",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__aes.rs_line_76_col_9_001.log",
+      "diff_path": "diff/src__aes.rs_line_76_col_9_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 4.510239236,
+          "process_status": "Success",
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 3.768985293,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/aes.rs:76:9: replace AesGcmEncryptor::encrypt -> Result<Vec<u8>, AesError> with Ok(vec![1])",
+          "package": "cryptkit",
+          "file": "src/aes.rs",
+          "function": {
+            "function_name": "AesGcmEncryptor::encrypt",
+            "return_type": "-> Result<Vec<u8>, AesError>",
+            "span": {
+              "start": {
+                "line": 68,
+                "column": 5
+              },
+              "end": {
+                "line": 91,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 76,
+              "column": 9
+            },
+            "end": {
+              "line": 90,
+              "column": 19
+            }
+          },
+          "replacement": "Ok(vec![1])",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__aes.rs_line_76_col_9_002.log",
+      "diff_path": "diff/src__aes.rs_line_76_col_9_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 2.55806159,
+          "process_status": "Success",
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 3.561532252,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/aes.rs:98:9: replace AesGcmEncryptor::decrypt -> Result<Vec<u8>, AesError> with Ok(vec![])",
+          "package": "cryptkit",
+          "file": "src/aes.rs",
+          "function": {
+            "function_name": "AesGcmEncryptor::decrypt",
+            "return_type": "-> Result<Vec<u8>, AesError>",
+            "span": {
+              "start": {
+                "line": 93,
+                "column": 5
+              },
+              "end": {
+                "line": 111,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 98,
+              "column": 9
+            },
+            "end": {
+              "line": 110,
+              "column": 59
+            }
+          },
+          "replacement": "Ok(vec![])",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__aes.rs_line_98_col_9.log",
+      "diff_path": "diff/src__aes.rs_line_98_col_9.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 6.186657955,
+          "process_status": "Success",
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 3.165634163,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/aes.rs:98:9: replace AesGcmEncryptor::decrypt -> Result<Vec<u8>, AesError> with Ok(vec![0])",
+          "package": "cryptkit",
+          "file": "src/aes.rs",
+          "function": {
+            "function_name": "AesGcmEncryptor::decrypt",
+            "return_type": "-> Result<Vec<u8>, AesError>",
+            "span": {
+              "start": {
+                "line": 93,
+                "column": 5
+              },
+              "end": {
+                "line": 111,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 98,
+              "column": 9
+            },
+            "end": {
+              "line": 110,
+              "column": 59
+            }
+          },
+          "replacement": "Ok(vec![0])",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__aes.rs_line_98_col_9_001.log",
+      "diff_path": "diff/src__aes.rs_line_98_col_9_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 3.210138118,
+          "process_status": "Success",
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 3.206989557,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/aes.rs:98:9: replace AesGcmEncryptor::decrypt -> Result<Vec<u8>, AesError> with Ok(vec![1])",
+          "package": "cryptkit",
+          "file": "src/aes.rs",
+          "function": {
+            "function_name": "AesGcmEncryptor::decrypt",
+            "return_type": "-> Result<Vec<u8>, AesError>",
+            "span": {
+              "start": {
+                "line": 93,
+                "column": 5
+              },
+              "end": {
+                "line": 111,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 98,
+              "column": 9
+            },
+            "end": {
+              "line": 110,
+              "column": 59
+            }
+          },
+          "replacement": "Ok(vec![1])",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__aes.rs_line_98_col_9_002.log",
+      "diff_path": "diff/src__aes.rs_line_98_col_9_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 2.364564939,
+          "process_status": "Success",
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 2.462237447,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/aes.rs:98:23: replace < with == in AesGcmEncryptor::decrypt",
+          "package": "cryptkit",
+          "file": "src/aes.rs",
+          "function": {
+            "function_name": "AesGcmEncryptor::decrypt",
+            "return_type": "-> Result<Vec<u8>, AesError>",
+            "span": {
+              "start": {
+                "line": 93,
+                "column": 5
+              },
+              "end": {
+                "line": 111,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 98,
+              "column": 23
+            },
+            "end": {
+              "line": 98,
+              "column": 24
+            }
+          },
+          "replacement": "==",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__aes.rs_line_98_col_23.log",
+      "diff_path": "diff/src__aes.rs_line_98_col_23.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 3.71933441,
+          "process_status": "Success",
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 3.85765272,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/aes.rs:98:23: replace < with > in AesGcmEncryptor::decrypt",
+          "package": "cryptkit",
+          "file": "src/aes.rs",
+          "function": {
+            "function_name": "AesGcmEncryptor::decrypt",
+            "return_type": "-> Result<Vec<u8>, AesError>",
+            "span": {
+              "start": {
+                "line": 93,
+                "column": 5
+              },
+              "end": {
+                "line": 111,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 98,
+              "column": 23
+            },
+            "end": {
+              "line": 98,
+              "column": 24
+            }
+          },
+          "replacement": ">",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__aes.rs_line_98_col_23_001.log",
+      "diff_path": "diff/src__aes.rs_line_98_col_23_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 2.254624601,
+          "process_status": "Success",
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 2.90659426,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/aes.rs:98:23: replace < with <= in AesGcmEncryptor::decrypt",
+          "package": "cryptkit",
+          "file": "src/aes.rs",
+          "function": {
+            "function_name": "AesGcmEncryptor::decrypt",
+            "return_type": "-> Result<Vec<u8>, AesError>",
+            "span": {
+              "start": {
+                "line": 93,
+                "column": 5
+              },
+              "end": {
+                "line": 111,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 98,
+              "column": 23
+            },
+            "end": {
+              "line": 98,
+              "column": 24
+            }
+          },
+          "replacement": "<=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "MissedMutant",
+      "log_path": "log/src__aes.rs_line_98_col_23_002.log",
+      "diff_path": "diff/src__aes.rs_line_98_col_23_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 1.906804643,
+          "process_status": "Success",
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 3.758267827,
+          "process_status": "Success",
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/aes.rs:118:9: replace AesGcmEncryptor::key_bytes -> &[u8; 32] with Box::leak(Box::new([0; 32]))",
+          "package": "cryptkit",
+          "file": "src/aes.rs",
+          "function": {
+            "function_name": "AesGcmEncryptor::key_bytes",
+            "return_type": "-> &[u8; 32]",
+            "span": {
+              "start": {
+                "line": 113,
+                "column": 5
+              },
+              "end": {
+                "line": 119,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 118,
+              "column": 9
+            },
+            "end": {
+              "line": 118,
+              "column": 18
+            }
+          },
+          "replacement": "Box::leak(Box::new([0; 32]))",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__aes.rs_line_118_col_9.log",
+      "diff_path": "diff/src__aes.rs_line_118_col_9.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 2.01424026,
+          "process_status": "Success",
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 2.604593135,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/aes.rs:118:9: replace AesGcmEncryptor::key_bytes -> &[u8; 32] with Box::leak(Box::new([1; 32]))",
+          "package": "cryptkit",
+          "file": "src/aes.rs",
+          "function": {
+            "function_name": "AesGcmEncryptor::key_bytes",
+            "return_type": "-> &[u8; 32]",
+            "span": {
+              "start": {
+                "line": 113,
+                "column": 5
+              },
+              "end": {
+                "line": 119,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 118,
+              "column": 9
+            },
+            "end": {
+              "line": 118,
+              "column": 18
+            }
+          },
+          "replacement": "Box::leak(Box::new([1; 32]))",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__aes.rs_line_118_col_9_001.log",
+      "diff_path": "diff/src__aes.rs_line_118_col_9_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 1.354423934,
+          "process_status": "Success",
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 2.664896451,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/aes.rs:76:9: replace AesGcmEncryptor::encrypt -> Result<Vec<u8>, AesError> with Ok(vec![])",
+          "package": "cryptkit",
+          "file": "src/aes.rs",
+          "function": {
+            "function_name": "AesGcmEncryptor::encrypt",
+            "return_type": "-> Result<Vec<u8>, AesError>",
+            "span": {
+              "start": {
+                "line": 68,
+                "column": 5
+              },
+              "end": {
+                "line": 91,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 76,
+              "column": 9
+            },
+            "end": {
+              "line": 90,
+              "column": 19
+            }
+          },
+          "replacement": "Ok(vec![])",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__aes.rs_line_76_col_9.log",
+      "diff_path": "diff/src__aes.rs_line_76_col_9.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 72.876125299,
+          "process_status": "Success",
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 2.10912459,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/home/wyatt/.rustup/toolchains/1.94.1-x86_64-unknown-linux-gnu/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=cryptkit@0.1.0",
+            "--all-features"
+          ]
+        }
+      ]
+    }
+  ],
+  "total_mutants": 12,
+  "missed": 1,
+  "caught": 10,
+  "timeout": 0,
+  "unviable": 1,
+  "success": 0,
+  "start_time": "2026-09-09T22:01:36.702797953Z",
+  "end_time": "2026-09-09T22:03:58.875207163Z",
+  "cargo_mutants_version": "27.1.0"
+}

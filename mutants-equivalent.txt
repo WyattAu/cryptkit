@@ -1,0 +1,10 @@
+# Equivalent mutants — cryptkit cargo-mutants baseline (2026-09-09)
+
+## src/aes.rs:98:23 — replace `<` with `<=` in AesGcmEncryptor::decrypt
+For input length exactly 12 (nonce with no ciphertext/tag), the original
+falls through to the AEAD decrypt, which rejects it (tag missing); the
+mutant rejects it one step earlier via the length guard. Both return
+`Err(AesError::Decrypt(_))` — the only divergence is the embedded message
+string ("data too short" vs the aead crate's error text). No caller can
+observe a behavioral difference without matching on the message text, and
+pinning the aead crate's error string would be brittle. Equivalent.

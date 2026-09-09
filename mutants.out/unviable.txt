@@ -1,0 +1,1 @@
+src/aes.rs:63:9: replace AesGcmEncryptor::generate -> Result<Self, AesError> with Ok(Default::default())

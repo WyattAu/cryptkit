@@ -187,6 +187,16 @@ mod tests {
         }
     }
 
+    /// REQ-CK-107: `key_bytes` returns the exact key the encryptor was
+    /// constructed with.
+    #[test]
+    fn key_bytes_round_trip() {
+        let mut key = [0u8; 32];
+        random::secure_random_bytes(&mut key);
+        let enc = AesGcmEncryptor::new(key).unwrap();
+        assert_eq!(enc.key_bytes(), &key);
+    }
+
     /// REQ-CK-202: a single handle shared across threads performs concurrent
     /// encrypt/decrypt correctly (immutable `&self` API, `Send + Sync`).
     #[test]
