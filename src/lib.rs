@@ -1,3 +1,5 @@
+#![cfg_attr(docsrs, feature(doc_cfg))]
+#![cfg_attr(docsrs, allow(unused_attributes))]
 #![forbid(unsafe_code)]
 #![deny(missing_docs)]
 //! Cryptographic primitives for Rust.
@@ -19,12 +21,15 @@
 //! ```
 
 #[cfg(feature = "hmac_sha256")]
+#[cfg_attr(docsrs, doc(cfg(feature = "hmac_sha256")))]
 pub mod hmac;
 
 #[cfg(feature = "aes-gcm")]
+#[cfg_attr(docsrs, doc(cfg(feature = "aes-gcm")))]
 pub mod aes;
 
 #[cfg(feature = "hmac_sha256")]
+#[cfg_attr(docsrs, doc(cfg(feature = "hmac_sha256")))]
 pub mod hash;
 pub mod random;
 

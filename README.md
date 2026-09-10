@@ -1,5 +1,9 @@
 # cryptkit
 
+[![docs.rs](https://docs.rs/cryptkit/badge.svg)](https://docs.rs/cryptkit)
+[![crates.io](https://img.shields.io/crates/v/cryptkit.svg)](https://crates.io/crates/cryptkit)
+[![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](LICENSE)
+
 Cryptographic primitives for Rust — HMAC-SHA256, AES-GCM, constant-time comparison, and secure random with zeroize.
 
 ## Purpose
