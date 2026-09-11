@@ -11,6 +11,7 @@
 //! # Quick Start
 //!
 //! ```rust
+//! # #[cfg(feature = "hmac_sha256")] {
 //! use cryptkit::hmac::{hmac_sign, hmac_verify};
 //!
 //! let key = b"super-secret-key";
@@ -18,6 +19,7 @@
 //!
 //! let tag = hmac_sign(key, message);
 //! assert!(hmac_verify(key, message, &tag));
+//! # }
 //! ```
 
 #[cfg(feature = "hmac_sha256")]
@@ -52,6 +54,7 @@ mod proptests {
 
     proptest! {
         #[test]
+        #[cfg(feature = "hmac_sha256")]
         fn hmac_sign_verify_roundtrip(key in "\\PC{1,256}", message in "\\PC{1,256}") {
             let key = key.as_bytes();
             let message = message.as_bytes();
@@ -60,6 +63,7 @@ mod proptests {
         }
 
         #[test]
+        #[cfg(feature = "hmac_sha256")]
         fn hmac_wrong_key_fails(key1 in "\\PC{1,256}", key2 in "\\PC{1,256}", message in "\\PC{1,256}") {
             let key1 = key1.as_bytes();
             let key2 = key2.as_bytes();
@@ -70,6 +74,7 @@ mod proptests {
         }
 
         #[test]
+        #[cfg(feature = "aes-gcm")]
         fn aes_gcm_roundtrip(plaintext in "\\PC{0,1024}") {
             let plaintext = plaintext.as_bytes();
             let enc = aes::AesGcmEncryptor::generate().unwrap();
@@ -79,6 +84,7 @@ mod proptests {
         }
 
         #[test]
+        #[cfg(feature = "aes-gcm")]
         fn aes_gcm_wrong_key_fails(plaintext in "\\PC{1,256}") {
             let plaintext = plaintext.as_bytes();
             let enc1 = aes::AesGcmEncryptor::generate().unwrap();

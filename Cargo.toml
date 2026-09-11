@@ -19,8 +19,6 @@ subtle = "2"
 zeroize = { version = "1", features = ["zeroize_derive"] }
 rand = "0.8"
 thiserror = "2"
-ed25519-dalek = { version = "2", optional = true }
-ring = { version = "0.17", optional = true }
 
 [[bench]]
 name = "crypto_bench"
@@ -35,8 +33,8 @@ proptest = "1"
 default = ["hmac_sha256", "aes-gcm"]
 hmac_sha256 = ["dep:hmac", "dep:sha2"]
 aes-gcm = ["dep:aes-gcm"]
-ed25519 = ["dep:ed25519-dalek"]
-fips = ["dep:ring"]
+ed25519 = []
+fips = []
 
 [package.metadata.docs.rs]
 all-features = true
