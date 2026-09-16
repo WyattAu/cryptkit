@@ -1,0 +1,12 @@
+# cargo-mutants configuration.
+# Config only — do NOT run in CI (too slow for routine verification).
+#
+# Baseline (2026-09-16): 25 mutants, 25 caught, 0 missed,
+# 0 unviable = 100% kill score. Full-src scope: aes.rs, hash.rs,
+# hmac.rs, lib.rs, random.rs.
+#
+# Reproduce:
+#   CARGO_TARGET_DIR=/var/tmp/target-mutants-cryptkit \
+#     cargo mutants --no-shuffle -j 4
+timeout_multiplier = 4.0
+exclude_globs = ["tests/*", "benches/*"]

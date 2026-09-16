@@ -1,0 +1,33 @@
+--- src/aes.rs
++++ replace AesGcmEncryptor::decrypt -> Result<Vec<u8>, AesError> with Ok(vec![])
+@@ -90,29 +90,17 @@
+         Ok(output)
+     }
+ 
+     /// Decrypts `nonce || ciphertext` produced by [`encrypt`](Self::encrypt).
+     ///
+     /// # Requirements
+     /// REQ-CK-002, REQ-CK-102, REQ-CK-103, REQ-CK-200
+     pub fn decrypt(&self, data: &[u8]) -> Result<Vec<u8>, AesError> {
+-        if data.len() < 12 {
+-            return Err(AesError::Decrypt("data too short".into()));
+-        }
+-
+-        let (nonce_bytes, ciphertext) = data.split_at(12);
+-        let nonce = Nonce::from_slice(nonce_bytes);
+-
+-        let cipher =
+-            Aes256Gcm::new_from_slice(&self.key).map_err(|e| AesError::Decrypt(e.to_string()))?;
+-
+-        cipher
+-            .decrypt(nonce, ciphertext)
+-            .map_err(|e| AesError::Decrypt(e.to_string()))
++        Ok(vec![]) /* ~ changed by cargo-mutants ~ */
+     }
+ 
+     /// Returns a reference to the raw key bytes.
+     ///
+     /// # Requirements
+     /// REQ-CK-107
+     pub fn key_bytes(&self) -> &[u8; 32] {
+         &self.key

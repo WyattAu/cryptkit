@@ -100,6 +100,14 @@ assert!(!constant_time_eq(b"abc", b"abd"));
 
 Rust **1.85** (edition 2024).
 
+## Mutation testing
+
+`cargo mutants` (config in [`.cargo/mutants.toml`](.cargo/mutants.toml), not run in CI):
+
+- **2026-09-16 baseline: 25 mutants, 25 caught, 0 missed, 0 unviable = 100% kill score.**
+- Scope: all `src/` modules (`aes.rs`, `hash.rs`, `hmac.rs`, `lib.rs`, `random.rs`); `tests/` and `benches/` excluded from mutation.
+- Reproduce: `CARGO_TARGET_DIR=/var/tmp/target-mutants-cryptkit cargo mutants --no-shuffle -j 4` (~20 s).
+
 ## License
 
 Licensed under either of [Apache License, Version 2.0](LICENSE-APACHE) or [MIT License](LICENSE-MIT) at your option.

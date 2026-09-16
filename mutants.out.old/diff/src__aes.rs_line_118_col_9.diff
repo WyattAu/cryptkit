@@ -1,0 +1,21 @@
+--- src/aes.rs
++++ replace AesGcmEncryptor::key_bytes -> &[u8; 32] with Box::leak(Box::new([0; 32]))
+@@ -110,17 +110,17 @@
+             .map_err(|e| AesError::Decrypt(e.to_string()))
+     }
+ 
+     /// Returns a reference to the raw key bytes.
+     ///
+     /// # Requirements
+     /// REQ-CK-107
+     pub fn key_bytes(&self) -> &[u8; 32] {
+-        &self.key
++        Box::leak(Box::new([0; 32])) /* ~ changed by cargo-mutants ~ */
+     }
+ }
+ 
+ // Tests exercise failure paths and invariants directly; unwrap/expect,
+ // slicing, and panicking asserts are acceptable here — violations
+ // surface as test failures, not production panics.
+ #[allow(
+     clippy::unwrap_used,
