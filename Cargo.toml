@@ -12,7 +12,7 @@ exclude = ["/target"]
 readme = "README.md"
 
 [dependencies]
-hmac = { version = "0.12", optional = true }
+hmac = { version = "0.13", optional = true }
 sha2 = { version = "0.10", optional = true }
 aes-gcm = { version = "0.10", optional = true }
 subtle = "2"
