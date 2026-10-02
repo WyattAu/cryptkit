@@ -14,7 +14,7 @@ readme = "README.md"
 [dependencies]
 hmac = { version = "0.12", optional = true }
 sha2 = { version = "0.10", optional = true }
-aes-gcm = { version = "0.10", optional = true }
+aes-gcm = { version = "0.11", optional = true }
 subtle = "2"
 zeroize = { version = "1", features = ["zeroize_derive"] }
 rand = "0.8"
