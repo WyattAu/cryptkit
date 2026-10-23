@@ -1,4 +1,5 @@
 # cryptkit
+[![Estate integration](https://github.com/WyattAu/estate-integration/actions/workflows/ci.yml/badge.svg)](https://github.com/WyattAu/estate-integration/actions/workflows/ci.yml)
 
 [![docs.rs](https://docs.rs/cryptkit/badge.svg)](https://docs.rs/cryptkit)
 [![crates.io](https://img.shields.io/crates/v/cryptkit.svg)](https://crates.io/crates/cryptkit)
