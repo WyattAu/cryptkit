@@ -1,9 +1,9 @@
 [package]
 name = "cryptkit"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 rust-version = "1.85"
-description = "Cryptographic primitives for Rust — HMAC-SHA256, AES-GCM, constant-time comparison, and secure random with zeroize"
+description = "Cryptographic primitives for Rust: HMAC-SHA256, AES-GCM, constant-time comparison, and secure random with zeroize"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/WyattAu/cryptkit"
 keywords = ["crypto", "hmac", "aes-gcm", "constant-time", "zeroize"]
