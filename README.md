@@ -5,17 +5,17 @@
 [![crates.io](https://img.shields.io/crates/v/cryptkit.svg)](https://crates.io/crates/cryptkit)
 [![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](LICENSE)
 
-Cryptographic primitives for Rust — HMAC-SHA256, AES-GCM, constant-time comparison, and secure random with zeroize.
+Cryptographic primitives for Rust; HMAC-SHA256, AES-GCM, constant-time comparison, and secure random with zeroize.
 
 ## Purpose
 
 `cryptkit` provides a curated set of cryptographic building blocks designed for application-level use:
 
-- **HMAC-SHA256** — keyed hashing for message authentication
-- **AES-256-GCM** — authenticated encryption with associated data
-- **Constant-time comparison** — prevents timing side-channel attacks
-- **SHA-256** — fast cryptographic hashing
-- **Secure random** — OS-backed random byte generation with `zeroize` support
+- **HMAC-SHA256**; keyed hashing for message authentication
+- **AES-256-GCM**; authenticated encryption with associated data
+- **Constant-time comparison**; prevents timing side-channel attacks
+- **SHA-256**; fast cryptographic hashing
+- **Secure random**; OS-backed random byte generation with `zeroize` support
 
 All secret material is zeroized on drop via the `zeroize` crate.
 
@@ -64,11 +64,11 @@ assert!(!constant_time_eq(b"abc", b"abd"));
 
 ## Security Properties
 
-- **`#![forbid(unsafe_code)]`** — no unsafe in the entire crate
-- **Zeroize on drop** — all secret keys are cleared from memory when dropped
-- **Constant-time operations** — HMAC verification and equality checks use `subtle` crate
-- **OS entropy** — random generation uses the platform CSPRNG
-- **No hard-coded keys or IVs** — all nonces are randomly generated per encryption
+- **`#![forbid(unsafe_code)]`**; no unsafe in the entire crate
+- **Zeroize on drop**; all secret keys are cleared from memory when dropped
+- **Constant-time operations**; HMAC verification and equality checks use `subtle` crate
+- **OS entropy**; random generation uses the platform CSPRNG
+- **No hard-coded keys or IVs**; all nonces are randomly generated per encryption
 
 ## Features
 

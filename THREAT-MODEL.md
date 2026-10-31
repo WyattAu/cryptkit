@@ -1,4 +1,4 @@
-# Threat Model — cryptkit
+# Threat Model: cryptkit
 
 Status: **v1.0** · Method: STRIDE over the public API surface
 (`hmac_sign`/`hmac_verify`/`constant_time_eq`, `AesGcmEncryptor`,
@@ -28,22 +28,22 @@ Trust boundaries: (1) ciphertext/tags and messages supplied by callers
 | T5 | Weak randomness for keys and nonces | Spoofing | `random::secure_random_bytes` | OS entropy via `rand` thread RNG (ChaCha-based CSPRNG) | `src/random.rs::two_calls_differ`, `fills_buffer` (statistical smoke only) |
 | T6 | Crash/panic on hostile input | DoS | all functions | `#![forbid(unsafe_code)]`; HMAC accepts any key length; `decrypt` bounds-checks input | `fuzz/fuzz_targets/fuzz_hmac_verify.rs`, `fuzz_decrypt_aes_gcm.rs`; proptest `aes_gcm_roundtrip` with empty plaintext |
 
-## OPEN RISKS (missing mitigations — not fabricated)
+## OPEN RISKS (missing mitigations: not fabricated)
 
-- **OPEN-1 — random 96-bit nonces with no usage accounting.** `encrypt`
+- **OPEN-1; random 96-bit nonces with no usage accounting.** `encrypt`
   generates a fresh random nonce per message; there is no counter, no
   collision monitor, and no documented message-volume bound. NIST's 2³²
   per-key bound for random nonces is unenforced and untested.
-- **OPEN-2 — `AesGcmEncryptor::key_bytes()` deliberately exposes the raw
+- **OPEN-2; `AesGcmEncryptor::key_bytes()` deliberately exposes the raw
   key.** Any caller (or `Debug` of a returned reference) can leak A3; the
   accessor is a documented API choice, not an accident.
-- **OPEN-3 — no AEAD associated-data support.** `encrypt` never binds
+- **OPEN-3; no AEAD associated-data support.** `encrypt` never binds
   context (AAD is always empty); ciphertexts are freely interchangeable
   between messages/records under the same key.
-- **OPEN-4 — `rand::thread_rng()` instead of `OsRng`/`getrandom` directly.**
+- **OPEN-4; `rand::thread_rng()` instead of `OsRng`/`getrandom` directly.**
   Fork- and reseed-behavior caveats of a process-global RNG apply; the doc
   comment says "OS entropy source", which is indirect. No test distinguishes.
-- **OPEN-5 — HMAC doc overstates zeroization.** `hmac_sign`'s doc says "the
+- **OPEN-5; HMAC doc overstates zeroization.** `hmac_sign`'s doc says "the
   key is zeroized after use"; no zeroization happens on the borrowed
   `&[u8]` key (only `AesGcmEncryptor` is `ZeroizeOnDrop`). Doc drift.
 

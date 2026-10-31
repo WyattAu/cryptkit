@@ -1,4 +1,4 @@
-# Requirements — cryptkit
+# Requirements: cryptkit
 
 Numbered, testable requirements. Every requirement maps to at least one named
 test; every security-relevant test cites at least one requirement. Doc
@@ -36,10 +36,10 @@ comments on the implementing public item carry `REQ-CK-NNN` tags.
 
 ## Constant-Time Audit
 
-- AUDIT: MAC comparison via `hmac::Mac::verify_slice` (`src/hmac.rs`) —
+- AUDIT: MAC comparison via `hmac::Mac::verify_slice` (`src/hmac.rs`) -
   constant-time (subtle-backed). ✓
 - AUDIT: `constant_time_eq` via `subtle::ConstantTimeEq` (`src/hmac.rs`). ✓
-  Length mismatch short-circuits before the CT compare — leaks only the
+  Length mismatch short-circuits before the CT compare; leaks only the
   (public) length, standard practice.
 - AUDIT: AES-GCM tag verification is internal to the `aes-gcm` crate
   (RustCrypto, constant-time bitsliced implementation). ✓
@@ -59,13 +59,13 @@ comments on the implementing public item carry `REQ-CK-NNN` tags.
 | REQ-CK-101 | `constant_time_eq_works` (`src/hmac.rs`); AUDIT above | unit/audit |
 | REQ-CK-102 | `tampered_ciphertext_fails` (`src/aes.rs`) | unit |
 | REQ-CK-103 | `wrong_key_fails` (`src/aes.rs`); `aes_gcm_wrong_key_fails` (`src/lib.rs`) | unit/property |
-| REQ-CK-104 | `encryptor_is_zeroize_on_drop` (`src/aes.rs`) — **gap test added** (compile-time trait proof; replaces placeholder `key_zeroize_on_drop`) | unit/design |
+| REQ-CK-104 | `encryptor_is_zeroize_on_drop` (`src/aes.rs`); **gap test added** (compile-time trait proof; replaces placeholder `key_zeroize_on_drop`) | unit/design |
 | REQ-CK-105 | `two_calls_differ` (`src/random.rs`) | unit |
-| REQ-CK-106 | `hmac_verify_rejects_wrong_length_and_zero_tags` (`src/hmac.rs`) — **gap test added** | unit |
+| REQ-CK-106 | `hmac_verify_rejects_wrong_length_and_zero_tags` (`src/hmac.rs`); **gap test added** | unit |
 | REQ-CK-107 | AUDIT + API review (`src/aes.rs`: no `Debug`/`Display` derive on `AesGcmEncryptor`) | design |
-| REQ-CK-200 | `decrypt_rejects_truncated_input` (`src/aes.rs`) — **gap test added** | unit |
+| REQ-CK-200 | `decrypt_rejects_truncated_input` (`src/aes.rs`); **gap test added** | unit |
 | REQ-CK-201 | `constant_time_eq_works` (`src/hmac.rs`) | unit |
-| REQ-CK-202 | `shared_handle_concurrent_roundtrip` (`src/aes.rs`) — **gap test added** | unit/concurrency |
+| REQ-CK-202 | `shared_handle_concurrent_roundtrip` (`src/aes.rs`); **gap test added** | unit/concurrency |
 
 ## Test Count Delta
 
